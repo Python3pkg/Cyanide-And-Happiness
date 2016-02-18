@@ -2,7 +2,7 @@
 from setuptools import setup
 
 setup(name="Cyanide-And-Happiness",
-      version="1.21",
+      version="1.4",
       description="Automatically sets the latest Cyanide and Happiness comic as your background",
       url="https://github.com/sacert/Cyanide-And-Happiness",
       author="Stephen Kang",

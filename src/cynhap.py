@@ -12,7 +12,7 @@ from bs4 import BeautifulSoup
 
 def main():
 
-    url = 'http://explosm.net/comics/latest'
+    url = 'http://explosm.net/comics/latest/'
 
     # get local screen dimensions
     root = tk.Tk()
@@ -36,7 +36,6 @@ def main():
         f = open('temp.png','wb')
         f.write( requests.get(img ).content )
         f.close()
-
         comic = Image.open('temp.png','r')
         comic_width, comic_height = comic.size
 
@@ -62,11 +61,13 @@ def main():
         background.paste(comic, offset)
         background.save(imageName + '.png')
 
+        path = os.path.dirname(os.path.realpath(__file__))
         # remove files that arent needed and set background
-        os.remove("temp.png")
-        osxcmd = 'osascript -e \'tell application "System Events" to set picture of every desktop to "' + "~/" + imageName + '.png' + '" \''
+        #os.remove("temp.png")
+        osxcmd = "sqlite3 ~/Library/Application\ Support/Dock/desktoppicture.db \"update data set value = '{}'\";".format(imageName + ".png")
         os.system(osxcmd)
-        os.remove(imageName + '.png')
+        os.system("killall Dock;")
+        #os.remove(imageName + '.png')
 
         time.sleep(21600) # check every 6 hours for new
 
