@@ -12,7 +12,7 @@ from bs4 import BeautifulSoup
 
 def main():
 
-    url = 'http://explosm.net/comics/latest/'
+    url = 'http://explosm.net/comics/4003/'
 
     # get local screen dimensions
     root = tk.Tk()
@@ -62,12 +62,12 @@ def main():
         background.save(imageName + '.png')
 
         path = os.path.dirname(os.path.realpath(__file__))
+        print path
         # remove files that arent needed and set background
-        #os.remove("temp.png")
-        osxcmd = "sqlite3 ~/Library/Application\ Support/Dock/desktoppicture.db \"update data set value = '{}'\";".format(imageName + ".png")
+        os.remove("temp.png")
+        osxcmd = 'osascript -e \'tell application "System Events" to set picture of every desktop to "' + path + "/" + imageName + '.png' + '" \''
         os.system(osxcmd)
-        os.system("killall Dock;")
-        #os.remove(imageName + '.png')
+        os.remove(imageName + '.png')
 
         time.sleep(21600) # check every 6 hours for new
 
