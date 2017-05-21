@@ -4,9 +4,9 @@ import re
 import os
 import sys
 import time
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import requests
-import Tkinter as tk
+import tkinter as tk
 from PIL import Image
 from bs4 import BeautifulSoup
 
@@ -26,7 +26,7 @@ def main():
     while True:
 
         # get comic info
-        link = urllib.urlopen(url)
+        link = urllib.request.urlopen(url)
         soup = BeautifulSoup(link, "html.parser")
         img = soup.findAll('img', {'id': "main-comic"})[0].get('src')
         img = "http://" + img[2:]
@@ -62,7 +62,7 @@ def main():
         background.save(imageName + '.png')
 
         path = os.path.dirname(os.path.realpath(__file__))
-        print path
+        print(path)
         # remove files that arent needed and set background
         os.remove("temp.png")
         osxcmd = 'osascript -e \'tell application "System Events" to set picture of every desktop to "' + path + "/" + imageName + '.png' + '" \''
